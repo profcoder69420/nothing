@@ -1,102 +1,80 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Tic Tac Toe</title>
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        font-family: sans-serif;
-        display: flex;
-        justify-content: center;
-        margin: 0;
-        padding: 0;
-      }
-      .board {
-        display: flex;
-        flex-direction: column;
-        background-color: #e7e7e7;
-        padding: 10px;
-        margin: 10px;
-        border-radius: 10px;
-      }
-      .row {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-      }
-      .cell {
-        flex: 0 0 33.33%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        text-align: center;
-        font-size: 3rem;
-        font-weight: bold;
-        background-color: #fff;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="board">
-      <div class="row">
-        <div class="cell" id="cell-1"></div>
-        <div class="cell" id="cell-2"></div>
-        <div class="cell" id="cell-3"></div>
-      </div>
-      <div class="row">
-        <div class="cell" id="cell-4"></div>
-        <div class="cell" id="cell-5"></div>
-        <div class="cell" id="cell-6"></div>
-      </div>
-      <div class="row">
-        <div class="cell" id="cell-7"></div>
-        <div class="cell" id="cell-8"></div>
-        <div class="cell" id="cell-9"></div>
-      </div>
-    </div>
-    <script>
-      const cells = document.querySelectorAll('.cell');
-      let xIsNext = true;
-      let gameOver = false;
+<head>
+<title>Unit Converter</title>
+<style>
+body {
+    background-color: #f2f2f2;
+    font-family: sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
 
-      function handleClick(e) {
-        if (gameOver) return;
-        if (e.target.textContent !== '') return;
-        const currentPlayer = xIsNext ? 'X' : 'O';
-        e.target.textContent = currentPlayer;
-        xIsNext = !xIsNext;
+#converter-form {
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #ccc;
+    background-color: #fff;
+}
 
-        checkWin();
-      }
+#converter-form label {
+    display: block;
+    margin-bottom: 8px;
+}
 
-      function checkWin() {
-        const winningCombos = [
-          [0, 1, 2],
-          [3, 4, 5],
-          [6, 7, 8],
-          [0, 3, 6],
-          [1, 4, 7],
-          [2, 5, 8],
-          [0, 4, 8],
-          [2, 4, 6]
-  ];
+#converter-form input, #converter-form select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 
-        winningCombos.forEach(combo => {
-          const [a, b, c] = combo;
-          const cellA = cells[a].textContent;
-          const cellB = cells[b].textContent;
-          const cellC = cells[c].textContent;
-          if (cellA === '' || cellB === '' || cellC === '') return;
-          if (cellA === cellB && cellB === cellC) {
-            gameOver = true;
-            alert('Player ${cellA} wins!');
-          }
-        });
-      }
+#converter-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
-      cells.forEach(cell => {
-        cell.addEventListener('click', handleClick);
-      });
-    </script>
-  </body>
+#converter-form button:hover {
+    background-color: #45a049;
+}
+
+</style>
+</head>
+<body>
+
+<h1>Unit Converter</h1>
+
+<form id="converter-form" action="converter.php" method="post">
+
+    <label for="from-unit">From Unit:</label>
+    <select name="from-unit">
+        <option value="inches">Inches</option>
+        <option value="feet">Feet</option>
+        <option value="yards">Yards</option>
+        <option value="miles">Miles</option>
+    </select>
+
+    <label for="to-unit">To Unit:</label>
+    <select name="to-unit">
+        <option value="inches">Inches</option>
+        <option value="feet">Feet</option>
+        <option value="yards">Yards</option>
+        <option value="miles">Miles</option>
+    </select>
+
+    <label for="value">Value:</label>
+    <input type="text" name="value" placeholder="Enter a value...">
+
+    <button type="submit">Convert</button>
+
+</form>
+
+</body>
 </html>
